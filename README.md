@@ -1,71 +1,96 @@
-# TaskManager: Finally, a tool that keeps out of your way.
+# Team Task Manager (Full-Stack)
 
-Let's be honest—most task managers are either too simple to be useful or so complex they become a task themselves. I built this because I wanted something in the Goldilocks zone: professional, reliable, and dead-simple for the team to actually use.
+## Overview
+The Team Task Manager is a full-stack web application designed to support collaborative project management with role-based access control. It allows users to create projects, assign tasks, and monitor progress in a structured and efficient manner.
 
----
+The system focuses on providing a balance between usability and functionality, enabling both administrators and team members to perform their responsibilities with minimal friction.
 
-## What makes this special?
+## Features
 
-This isn't just another Todo list. It's built for actual team workflows where everyone has a specific role:
+### Authentication and Authorization
+- Secure user authentication (Signup and Login)
+- Role-based access control (Admin and Member) using JWT
 
-- Admin Control without the Headaches: As an Admin, you own the project. You create the vision, set the deadlines, and invite the team. You get a birds-eye view of everything through a dashboard that actually makes sense.
-- Member-First Progress: We hate friction. Members don't need to dive into complex menus just to say they started a task. They get a Quick Status Dropdown right in the table. Toggle to In Progress and get back to work.
-- Smart Deadlines: The app keeps track of time so you don't have to. Tasks that are past their due date glow red—a gentle (but firm) nudge to stay on track.
-- Sort Your Way: Whether you want to see what was just added or what's due in an hour, the sorting system has your back.
-- Stay Logged In: I set the sessions to last for a full week. No more logging in every single morning before your first coffee.
+### Project and Team Management
+- Admins can create and manage projects
+- Ability to add and manage team members
+- Centralized control over project activities
 
----
+### Task Management
+- Create, assign, and update tasks
+- Track task status (Pending, In Progress, Completed)
+- Inline status updates for quick modifications
 
-## Test it out (Demo Credentials)
+### Dashboard and Monitoring
+- Overview of all tasks within a project
+- Identification of overdue tasks
+- Sorting based on creation date and deadlines
 
-Want to see both sides of the app right away? Use these accounts to see how the Admin and Member roles feel:
+### Session Management
+- Persistent login sessions using JWT (valid for up to 7 days)
 
-Admin Account (Full Control)
-- Email: armaansiddiqui.pms@gmail.com
-- Password: admin123
+## Tech Stack
 
-Member Account (Status Updates Only)
-- Email: a@gmail.com
-- Password: 123456
+- **Frontend:** React (with Vite)
+- **Backend:** Node.js, Express.js
+- **Database:** MongoDB
+- **Authentication:** JSON Web Token
+- **UI:** Lucide
 
----
+## System Architecture
+- RESTful API design
+- Separation of frontend and backend layers
+- MongoDB schema design for users, projects, and tasks
+- Middleware-based authentication and authorization
 
-## The Engine Under the Hood
+## Deployment
+The application is deployed using Railway.
 
-I kept the tech stack clean and modern so it's snappy and easy to maintain:
-- The Core: React (Vite) for a fast UI and Node/Express for a rock-solid API.
-- The Brain: MongoDB handles the data, and JWT keeps everything locked down tight.
-- The Look: Clean, minimalist design using Lucide Icons and smooth transitions.
+Key aspects:
+- Single-service deployment for frontend and backend
+- Environment variable configuration for secure credentials
+- Automated build and deployment via GitHub integration
 
----
+## Demo Access
 
-## Getting it Running Locally
+### Admin Role
+- **Email:** armaansiddiqui.pms@gmail.com
+- **Password:** admin123
 
-If you want to play with the code on your own machine, it's pretty straightforward:
+### Member Role
+- **Email:** a@gmail.com
+- **Password:** 123456
 
-1. Grab the dependencies: 
-   In the root folder, just run: npm run install-all. (I made this script so you don't have to jump between folders).
-2. Environment Setup: 
-   - Pop into the backend/ and create a .env with your MONGO_URI and a JWT_SECRET. 
-   - The frontend already has a .env ready for localhost.
-3. Launch:
-   - cd backend && npm start
-   - cd frontend && npm run dev
+## Local Setup
 
----
+### 1. Install Dependencies
+Run the following command in the root directory:
+```bash
+npm run install-all
+```
 
-## Deploying to the Cloud (The One-Click Way)
+### 2. Environment Configuration
+Create a .env file in the backend directory and add:
+```env
+MONGO_URI=your_mongodb_connection_string  
+JWT_SECRET=your_secret_key  
+```
 
-I've optimized this project for Railway. The best part? You only need one service to host everything.
+### 3. Run the Application
 
-1. Connect your GitHub repo to Railway.
-2. Add your database variables (MONGO_URI, etc.).
-3. Railway will see the root package.json and handle the rest. It'll build your React app and start the server in one go.
-4. Boom. Your team is now live.
+**Backend:**
+```bash
+cd backend
+npm start
+```
 
----
+**Frontend:**
+```bash
+cd frontend
+npm run dev
+```
 
-## A Note from the Developer
-I built this with a focus on cleanliness. The code is commented, the structure is logical, and there’s no bloat. It’s meant to be a foundation you can actually build on.
-
-If you like it, feel free to use it, break it, or improve it!
+## Submission
+- **Live URL:** https://task-manager-production-cb9a.up.railway.app/login
+- **Demo Video:** https://drive.google.com/file/d/1f93vR_YnKJZ6tx0fLF80KjUtNhQW_ZP6/view?usp=forms_web
+- **GitHub Repository:** https://github.com/ARMAANSIDDIQUI/Task-Manager.git
