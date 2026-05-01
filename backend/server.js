@@ -14,6 +14,9 @@ const app = express();
 // Body parser
 app.use(express.json());
 
+// Health check route
+app.get('/health', (req, res) => res.status(200).send('API is running'));
+
 // Enable CORS
 app.use(cors());
 
