@@ -28,7 +28,7 @@ const Projects = () => {
   const handleCreate = async (e) => {
     e.preventDefault();
     try {
-      const memberArray = members.split(',').map(email => email.trim()).filter(email => email !== '');
+      const memberArray = members.split(',').map(email => email.trim().toLowerCase()).filter(email => email !== '');
       await API.post('/projects', { name, description, members: memberArray });
       setShowModal(false);
       setName('');
