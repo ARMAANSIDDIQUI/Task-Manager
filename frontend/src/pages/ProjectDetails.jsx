@@ -356,7 +356,7 @@ const ProjectDetails = () => {
                     type="text" 
                     value={newMemberEmail} 
                     onChange={async (e) => {
-                        const val = e.target.value;
+                        const val = e.target.value.toLowerCase();
                         setNewMemberEmail(val);
                         if (val.length > 2) {
                             const res = await API.get(`/auth/search?email=${val}`);

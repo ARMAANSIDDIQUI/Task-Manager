@@ -1,10 +1,10 @@
-# TaskManager: Finally, a tool that keeps out of your way.
+TaskManager: Finally, a tool that keeps out of your way.
 
 Let's be honest—most task managers are either too simple to be useful or so complex they become a task themselves. I built this because I wanted something in the Goldilocks zone: professional, reliable, and dead-simple for the team to actually use.
 
 ---
 
-## What makes this special?
+What makes this special?
 
 This isn't just another Todo list. It's built for actual team workflows where everyone has a specific role:
 
@@ -16,7 +16,7 @@ This isn't just another Todo list. It's built for actual team workflows where ev
 
 ---
 
-## Test it out (Demo Credentials)
+Test it out (Demo Credentials)
 
 Want to see both sides of the app right away? Use these accounts to see how the Admin and Member roles feel:
 
@@ -30,7 +30,7 @@ Member Account (Status Updates Only)
 
 ---
 
-## The Engine Under the Hood
+The Engine Under the Hood
 
 I kept the tech stack clean and modern so it's snappy and easy to maintain:
 - The Core: React (Vite) for a fast UI and Node/Express for a rock-solid API.
@@ -39,7 +39,7 @@ I kept the tech stack clean and modern so it's snappy and easy to maintain:
 
 ---
 
-## Getting it Running Locally
+Getting it Running Locally
 
 If you want to play with the code on your own machine, it's pretty straightforward:
 
@@ -54,7 +54,7 @@ If you want to play with the code on your own machine, it's pretty straightforwa
 
 ---
 
-## Deploying to the Cloud (The One-Click Way)
+Deploying to the Cloud (The One-Click Way)
 
 I've optimized this project for Railway. The best part? You only need one service to host everything.
 
@@ -65,7 +65,7 @@ I've optimized this project for Railway. The best part? You only need one servic
 
 ---
 
-## A Note from the Developer
+A Note from the Developer
 I built this with a focus on cleanliness. The code is commented, the structure is logical, and there’s no bloat. It’s meant to be a foundation you can actually build on.
 
 If you like it, feel free to use it, break it, or improve it!
