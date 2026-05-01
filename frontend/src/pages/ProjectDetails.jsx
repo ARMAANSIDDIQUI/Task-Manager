@@ -367,6 +367,7 @@ const ProjectDetails = () => {
                     }} 
                     placeholder="Type email to search..." 
                     required 
+                    style={{ textTransform: 'lowercase' }}
                 />
                 
                 {searchResults.length > 0 && (
