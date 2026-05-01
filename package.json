@@ -2,9 +2,17 @@
   "name": "ethara-ai-root",
   "version": "1.0.0",
   "scripts": {
-    "install-all": "npm install --prefix backend && npm install --prefix frontend",
-    "build-frontend": "npm run build --prefix frontend",
+    "build": "npm run build --prefix frontend",
     "start": "node backend/server.js",
-    "railway-build": "npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend"
+    "postinstall": "npm install --prefix frontend"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.6.1",
+    "validator": "^13.15.35"
   }
 }
