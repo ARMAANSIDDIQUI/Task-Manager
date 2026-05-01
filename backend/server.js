@@ -17,7 +17,7 @@ app.use(express.json());
 // Enable CORS
 app.use(cors());
 
-// Route files
+const path = require('path');
 const auth = require('./routes/authRoutes');
 const projects = require('./routes/projectRoutes');
 const tasks = require('./routes/taskRoutes');
@@ -25,8 +25,17 @@ const tasks = require('./routes/taskRoutes');
 // Mount routers
 app.use('/api/auth', auth);
 app.use('/api/projects', projects);
-app.use('/api/tasks', tasks); // Global tasks or stats
-app.use('/api/projects/:projectId/tasks', tasks); // Nested tasks
+app.use('/api/tasks', tasks); 
+app.use('/api/projects/:projectId/tasks', tasks);
+
+// Serve static assets in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../frontend/dist')));
+
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve(__dirname, '../', 'frontend', 'dist', 'index.html'))
+  );
+}
 
 const PORT = process.env.PORT || 5000;
 

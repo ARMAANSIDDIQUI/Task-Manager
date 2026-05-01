@@ -54,7 +54,15 @@ exports.login = async (req, res) => {
 // Just fetch the current user's details
 exports.getMe = async (req, res) => {
   const user = await User.findById(req.user.id);
-  res.status(200).json({ success: true, data: user });
+  res.status(200).json({ 
+    success: true, 
+    data: {
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role
+    }
+  });
 };
 
 // Search for users by email (for adding team members)

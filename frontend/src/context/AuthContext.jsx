@@ -15,8 +15,11 @@ export const AuthProvider = ({ children }) => {
       if (token) {
         try {
           const res = await API.get('/auth/me');
-          setUser(res.data.data);
+          const userData = res.data.data;
+          // Normalize ID just in case
+          setUser({ ...userData, id: userData.id || userData._id });
         } catch (err) {
+          console.error('Session validation failed:', err.response?.data || err.message);
           localStorage.removeItem('token');
           setUser(null);
         }
