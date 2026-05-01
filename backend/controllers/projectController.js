@@ -47,6 +47,23 @@ exports.updateProject = async (req, res) => {
       return res.status(401).json({ success: false, message: 'Not allowed to edit this' });
     }
 
+    // If members are being updated, resolve any emails to IDs
+    if (req.body.members) {
+        const resolvedMembers = [];
+        for (const member of req.body.members) {
+            // If it looks like an email, find the user
+            if (member.includes('@')) {
+                const user = await User.findOne({ email: member });
+                if (user) {
+                    resolvedMembers.push(user._id);
+                }
+            } else {
+                resolvedMembers.push(member);
+            }
+        }
+        req.body.members = resolvedMembers;
+    }
+
     project = await Project.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,

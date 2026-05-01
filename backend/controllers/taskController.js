@@ -40,6 +40,12 @@ exports.updateTask = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Task not found' });
     }
 
+    // RBAC: Members can only update tasks assigned to them
+    const isAssigned = task.assignedTo.some(id => id.toString() === req.user.id);
+    if (req.user.role !== 'Admin' && !isAssigned) {
+      return res.status(401).json({ success: false, message: 'You can only update tasks assigned to you' });
+    }
+
     task = await Task.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
@@ -60,6 +66,12 @@ exports.deleteTask = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Task not found' });
     }
 
+    // RBAC: Members can only delete tasks assigned to them
+    const isAssigned = task.assignedTo.some(id => id.toString() === req.user.id);
+    if (req.user.role !== 'Admin' && !isAssigned) {
+      return res.status(401).json({ success: false, message: 'You can only delete tasks assigned to you' });
+    }
+
     await task.deleteOne();
     res.status(200).json({ success: true, data: {} });
   } catch (err) {
@@ -72,14 +84,18 @@ exports.getStats = async (req, res) => {
     try {
         const userId = req.user.id;
         let query = {};
+        let projectQuery = {};
+
         if(req.user.role !== 'Admin') {
             query = { assignedTo: userId };
+            projectQuery = { members: userId };
         }
 
         const totalTasks = await Task.countDocuments(query);
         const todoTasks = await Task.countDocuments({ ...query, status: 'Todo' });
         const inProgressTasks = await Task.countDocuments({ ...query, status: 'In Progress' });
         const completedTasks = await Task.countDocuments({ ...query, status: 'Completed' });
+        const totalProjects = await Project.countDocuments(projectQuery);
         
         const overdueTasks = await Task.countDocuments({
             ...query,
@@ -94,7 +110,8 @@ exports.getStats = async (req, res) => {
                 todoTasks,
                 inProgressTasks,
                 completedTasks,
-                overdueTasks
+                overdueTasks,
+                totalProjects
             }
         });
     } catch (err) {

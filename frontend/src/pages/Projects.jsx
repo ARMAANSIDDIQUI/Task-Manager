@@ -9,6 +9,7 @@ const Projects = () => {
   const [showModal, setShowModal] = useState(false);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [members, setMembers] = useState(''); // Comma separated emails
   const { user } = useContext(AuthContext);
 
   const fetchProjects = async () => {
@@ -27,10 +28,12 @@ const Projects = () => {
   const handleCreate = async (e) => {
     e.preventDefault();
     try {
-      await API.post('/projects', { name, description });
+      const memberArray = members.split(',').map(email => email.trim()).filter(email => email !== '');
+      await API.post('/projects', { name, description, members: memberArray });
       setShowModal(false);
       setName('');
       setDescription('');
+      setMembers('');
       fetchProjects();
     } catch (err) {
       alert('Only Admins can create projects');

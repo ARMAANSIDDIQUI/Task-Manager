@@ -57,6 +57,24 @@ exports.getMe = async (req, res) => {
   res.status(200).json({ success: true, data: user });
 };
 
+// Search for users by email (for adding team members)
+exports.searchUsers = async (req, res) => {
+  try {
+    const { email } = req.query;
+    if (!email) {
+      return res.status(200).json({ success: true, data: [] });
+    }
+
+    const users = await User.find({
+      email: { $regex: email, $options: 'i' },
+    }).limit(5).select('name email');
+
+    res.status(200).json({ success: true, data: users });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+};
+
 // This little helper signs a JWT token and sends it back to the client
 const sendTokenResponse = (user, statusCode, res) => {
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
