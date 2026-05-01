@@ -29,12 +29,15 @@ app.use('/api/tasks', tasks);
 app.use('/api/projects/:projectId/tasks', tasks);
 
 // Serve static assets in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../frontend/dist')));
+console.log('Running in:', process.env.NODE_ENV || 'development');
 
-  app.get('(.*)', (req, res) =>
-    res.sendFile(path.resolve(__dirname, '../', 'frontend', 'dist', 'index.html'))
-  );
+if (process.env.NODE_ENV === 'production') {
+  const distPath = path.resolve(__dirname, '..', 'frontend', 'dist');
+  app.use(express.static(distPath));
+
+  app.get('(.*)', (req, res) => {
+    res.sendFile(path.join(distPath, 'index.html'));
+  });
 }
 
 const PORT = process.env.PORT || 5000;
