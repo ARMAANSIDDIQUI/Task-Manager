@@ -1,0 +1,52 @@
+import { useState, useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
+import { useNavigate, Link } from 'react-router-dom';
+
+const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await login(email, password);
+      navigate('/');
+    } catch (err) {
+      setError(err.response?.data?.message || 'Login failed. Please check your info.');
+    }
+  };
+
+  return (
+    <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div className="card" style={{ width: '100%', maxWidth: '400px' }}>
+        <h2 style={{ marginBottom: '0.5rem', textAlign: 'center' }}>Welcome Back</h2>
+        <p style={{ color: '#64748b', textAlign: 'center', marginBottom: '1.5rem', fontSize: '0.875rem' }}>
+          Enter your credentials to access your tasks
+        </p>
+
+        {error && <div style={{ background: '#fee2e2', color: '#991b1b', padding: '0.75rem', borderRadius: '0.375rem', marginBottom: '1rem', fontSize: '0.875rem' }}>{error}</div>}
+
+        <form onSubmit={handleSubmit}>
+          <div style={{ marginBottom: '1rem' }}>
+            <label style={{ display: 'block', marginBottom: '0.25rem', fontSize: '0.875rem', fontWeight: 500 }}>Email</label>
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          </div>
+          <div style={{ marginBottom: '1.5rem' }}>
+            <label style={{ display: 'block', marginBottom: '0.25rem', fontSize: '0.875rem', fontWeight: 500 }}>Password</label>
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          </div>
+          <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>Login</button>
+        </form>
+
+        <p style={{ marginTop: '1.5rem', textAlign: 'center', fontSize: '0.875rem', color: '#64748b' }}>
+          Don't have an account? <Link to="/signup" style={{ color: '#2563eb', textDecoration: 'none', fontWeight: 500 }}>Sign up</Link>
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export default Login;
