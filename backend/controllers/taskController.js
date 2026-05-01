@@ -16,6 +16,11 @@ exports.getTasks = async (req, res) => {
 // Create task
 exports.createTask = async (req, res) => {
   try {
+    // RBAC: Only Admins can create tasks
+    if (req.user.role !== 'Admin') {
+      return res.status(401).json({ success: false, message: 'Only Admins can create tasks' });
+    }
+
     req.body.project = req.params.projectId;
     req.body.createdBy = req.user.id;
 

@@ -118,21 +118,26 @@ const ProjectDetails = () => {
             </div>
             <p style={{ color: '#64748b', marginTop: '0.5rem' }}>{project.description}</p>
           </div>
-          <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
-            <select 
-                value={sortBy} 
-                onChange={(e) => setSortBy(e.target.value)}
-                style={{ width: 'auto', fontSize: '0.875rem', padding: '0.5rem 2rem 0.5rem 0.75rem' }}
-            >
-                <option value="newest">Newest First</option>
-                <option value="due">Due Date</option>
-            </select>
+          <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <span style={{ fontSize: '0.875rem', color: '#64748b', fontWeight: 500 }}>Sort by:</span>
+                <select 
+                    value={sortBy} 
+                    onChange={(e) => setSortBy(e.target.value)}
+                    style={{ width: 'auto', fontSize: '0.875rem', padding: '0.4rem 2rem 0.4rem 0.75rem' }}
+                >
+                    <option value="newest">Newest</option>
+                    <option value="due">Due Date</option>
+                </select>
+            </div>
             {user?.role === 'Admin' && (
-                <button className="btn btn-outline" onClick={() => setShowMemberModal(true)}>Manage Team</button>
+                <>
+                    <button className="btn btn-outline" onClick={() => setShowMemberModal(true)}>Manage Team</button>
+                    <button className="btn btn-primary" onClick={() => setShowModal(true)} style={{ gap: '0.5rem' }}>
+                        <Plus size={18} /> Add Task
+                    </button>
+                </>
             )}
-            <button className="btn btn-primary" onClick={() => setShowModal(true)} style={{ gap: '0.5rem' }}>
-                <Plus size={18} /> Add Task
-            </button>
           </div>
         </div>
       </div>
@@ -227,7 +232,7 @@ const ProjectDetails = () => {
                         </td>
                         <td style={{ padding: '1rem 1.5rem', textAlign: 'right' }}>
                             <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5rem' }}>
-                                {(user?.role === 'Admin' || task.assignedTo.some(a => String(a._id || a) === String(user?.id))) && (
+                                {user?.role === 'Admin' && (
                                     <>
                                         <button onClick={() => openEdit(task)} className="btn-icon" title="Edit Task"><Edit3 size={18} /></button>
                                         <button onClick={() => handleDelete(task._id)} className="btn-icon" title="Delete Task" style={{ color: '#ef4444' }}><Trash2 size={18} /></button>
